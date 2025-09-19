@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Test</title>
+</head>
+<body>
+    <h1>Google Auth Test</h1>
+    <div id="g_id_onload"
+         data-client_id="982944345380-0o9ccqh8ifkm9v5sq9mmht6sasuqa2is.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            document.body.innerHTML += '<p>Success! Token received: ' + response.credential.substring(0, 50) + '...</p>';
+        }
+    </script>
+</body>
+</html>

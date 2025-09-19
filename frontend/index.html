@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">KPI Dashboard</h1>
+            <nav class="nav">
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <img id="userPhoto" class="user-photo" alt="User Photo">
+                    <span id="userName"></span>
+                    <button id="signOutBtn" class="btn btn-secondary">Sign Out</button>
+                </div>
+                <div id="signInContainer">
+                    <div id="signInBtn"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Login Screen -->
+        <section id="loginScreen" class="screen active">
+            <div class="container">
+                <div class="login-card">
+                    <h2>Welcome to KPI Dashboard</h2>
+                    <p>Please sign in with your Google account to continue</p>
+                    <div id="loginSignInBtn"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Screen -->
+        <section id="loadingScreen" class="screen">
+            <div class="container">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading your dashboard...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Navigation -->
+        <section id="dashboardNav" class="screen">
+            <div class="container">
+                <div class="dashboard-nav">
+                    <h2>Select Your View</h2>
+                    <div class="nav-cards">
+                        <div class="nav-card" id="supervisorDashboardBtn">
+                            <div class="nav-card-icon">📊</div>
+                            <h3>Supervisor Dashboard</h3>
+                            <p>View team KPIs and performance metrics</p>
+                        </div>
+                        <div class="nav-card" id="adminPanelBtn">
+                            <div class="nav-card-icon">⚙️</div>
+                            <h3>Admin Panel</h3>
+                            <p>Manage tasks and assign to employees</p>
+                        </div>
+                        <div class="nav-card" id="employeeTasksBtn">
+                            <div class="nav-card-icon">✅</div>
+                            <h3>My Tasks</h3>
+                            <p>View and update your assigned tasks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supervisor Dashboard -->
+        <section id="supervisorDashboard" class="screen">
+            <div class="container">
+                <div class="screen-header">
+                    <h2>Supervisor Dashboard</h2>
+                    <button class="btn btn-secondary" onclick="showScreen('dashboardNav')">← Back</button>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <!-- KPI Summary Cards -->
+                    <div class="kpi-summary">
+                        <div class="kpi-card">
+                            <h3>Total Tasks</h3>
+                            <div class="kpi-value" id="totalTasks">0</div>
+                        </div>
+                        <div class="kpi-card">
+                            <h3>Completed</h3>
+                            <div class="kpi-value" id="completedTasks">0</div>
+                        </div>
+                        <div class="kpi-card">
+                            <h3>In Progress</h3>
+                            <div class="kpi-value" id="inProgressTasks">0</div>
+                        </div>
+                        <div class="kpi-card">
+                            <h3>Overdue</h3>
+                            <div class="kpi-value" id="overdueTasks">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Employee Filter -->
+                    <div class="filter-section">
+                        <label for="employeeFilter">Filter by Employee:</label>
+                        <select id="employeeFilter" class="form-control">
+                            <option value="">All Employees</option>
+                        </select>
+                    </div>
+
+                    <!-- Tasks Table -->
+                    <div class="table-container">
+                        <table class="tasks-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Task</th>
+                                    <th>Due Date</th>
+                                    <th>Progress</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="supervisorTasksTable">
+                                <!-- Tasks will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Panel -->
+        <section id="adminPanel" class="screen">
+            <div class="container">
+                <div class="screen-header">
+                    <h2>Admin Panel</h2>
+                    <button class="btn btn-secondary" onclick="showScreen('dashboardNav')">← Back</button>
+                </div>
+
+                <div class="admin-grid">
+                    <!-- Add Task Form -->
+                    <div class="admin-card">
+                        <h3>Add New Task</h3>
+                        <form id="addTaskForm" class="task-form">
+                            <div class="form-group">
+                                <label for="taskDescription">Task Description:</label>
+                                <textarea id="taskDescription" class="form-control" required rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDueDate">Due Date:</label>
+                                <input type="date" id="taskDueDate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="assignedEmployee">Assign to Employee:</label>
+                                <select id="assignedEmployee" class="form-control" required>
+                                    <option value="">Select Employee</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Task</button>
+                        </form>
+                    </div>
+
+                    <!-- Manage Employees -->
+                    <div class="admin-card">
+                        <h3>Manage Employees</h3>
+                        <form id="addEmployeeForm" class="employee-form">
+                            <div class="form-group">
+                                <label for="employeeName">Employee Name:</label>
+                                <input type="text" id="employeeName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeEmail">Employee Email:</label>
+                                <input type="email" id="employeeEmail" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeRole">Role:</label>
+                                <select id="employeeRole" class="form-control" required>
+                                    <option value="employee">Employee</option>
+                                    <option value="supervisor">Supervisor</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Employee</button>
+                        </form>
+                        
+                        <div class="employee-list" id="employeeList">
+                            <!-- Employee list will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- All Tasks Overview -->
+                    <div class="admin-card full-width">
+                        <h3>All Tasks</h3>
+                        <div class="table-container">
+                            <table class="tasks-table">
+                                <thead>
+                                    <tr>
+                                        <th>Task ID</th>
+                                        <th>Description</th>
+                                        <th>Employee</th>
+                                        <th>Due Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminTasksTable">
+                                    <!-- Tasks will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Employee Tasks -->
+        <section id="employeeTasks" class="screen">
+            <div class="container">
+                <div class="screen-header">
+                    <h2>My Tasks</h2>
+                    <button class="btn btn-secondary" onclick="showScreen('dashboardNav')">← Back</button>
+                </div>
+
+                <div class="employee-dashboard">
+                    <!-- Task Statistics -->
+                    <div class="task-stats">
+                        <div class="stat-card">
+                            <h4>Assigned</h4>
+                            <div class="stat-value" id="myAssignedTasks">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>In Progress</h4>
+                            <div class="stat-value" id="myInProgressTasks">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Completed</h4>
+                            <div class="stat-value" id="myCompletedTasks">0</div>
+                        </div>
+                    </div>
+
+                    <!-- My Tasks List -->
+                    <div class="my-tasks-container">
+                        <h3>Task List</h3>
+                        <div id="myTasksList" class="tasks-grid">
+                            <!-- Employee tasks will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task Detail Modal -->
+        <div id="taskModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Task Details</h3>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="taskDetailForm">
+                        <div class="form-group">
+                            <label for="modalTaskDescription">Description:</label>
+                            <textarea id="modalTaskDescription" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalTaskProgress">Progress (%):</label>
+                            <input type="range" id="modalTaskProgress" class="form-control" min="0" max="100" value="0">
+                            <span id="progressValue">0%</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalTaskStatus">Status:</label>
+                            <select id="modalTaskStatus" class="form-control">
+                                <option value="not_started">Not Started</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalTaskNotes">Notes:</label>
+                            <textarea id="modalTaskNotes" class="form-control" rows="2" placeholder="Add progress notes..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveTaskDetails()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 KPI Dashboard. Built with Google Apps Script.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="admin.js"></script>
+    <script src="employee.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

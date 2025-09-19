@@ -1,0 +1,16 @@
+{
+  "name": "kpi-dashboard",
+  "version": "1.0.0",
+  "description": "KPI Dashboard with Google Apps Script backend",
+  "scripts": {
+    "start": "serve . -p 8000",
+    "build": "echo 'No build step required for static site'",
+    "dev": "serve . -p 8000"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
