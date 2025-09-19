@@ -29,6 +29,8 @@ Stores employee information, roles, and authentication data.
 ID,Name,Email,Role,CreatedAt,UpdatedAt
 550e8400-e29b-41d4-a716-446655440001,John Doe,saestu.saestu@gmail.com,employee,2025-01-15T10:30:00.000Z,2025-01-15T10:30:00.000Z
 550e8400-e29b-41d4-a716-446655440002,Jane Smith,jane.smith@company.com,supervisor,2025-01-15T10:30:00.000Z,2025-01-15T10:30:00.000Z
+729a848d-1364-4ddf-8331-37d21a05f637,Yohanes Luhur,yohanes.luhur@gmail.com,supervisor,2025-09-19T08:42:06.072Z,2025-09-19T08:42:06.075Z
+c5758e28-7ab7-4e32-bc0a-f06f213c64ec,Raden Yoseph Hernawan,ry.hernawan@gmail.com,supervisor,2025-09-19T09:53:19.482Z,2025-09-19T09:53:19.486Z
 550e8400-e29b-41d4-a716-446655440003,Bob Manager,bob.manager@company.com,admin,2025-01-15T10:30:00.000Z,2025-01-15T10:30:00.000Z
 ```
 
